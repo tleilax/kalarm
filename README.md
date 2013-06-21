@@ -1,4 +1,4 @@
 kalarm
 ======
 
-Der KellerunterwasserverhinderungsALARM
+Der KellerunterwasserALARM
