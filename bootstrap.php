@@ -10,5 +10,7 @@
         printf('Exception #%u: %s in %s on line %u', $e->getCode(), $e->getMessage(), $e->getFile(), $e->getLine());
     });
 
-    $db = new PDO('sqlite:' . __DIR__ . '/kalarm.sqlite');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    define('DSN', 'sqlite:' . __DIR__ . '/kalarm.sqlite');
+
+    require 'classes/DB.php';
+    require 'classes/WeatherData.php';

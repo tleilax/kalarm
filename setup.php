@@ -1,7 +1,7 @@
 <?php
     require 'bootstrap.php';
 
-    $db->exec("CREATE TABLE IF NOT EXISTS `weather_data` (
+    DB::get()->exec("CREATE TABLE IF NOT EXISTS `weather_data` (
         `timestamp` INTEGER PRIMARY KEY,
         `temperature` DECIMAL,
         `temperature_felt` DECIMAL,

@@ -4,7 +4,7 @@ $i = $_REQUEST['i'];
 $rows = array_filter(array_map('trim', file('http://www.uni-oldenburg.de/dezernat4/wetter/ausgabe.php?datei=Wetter' . $i . '.txt')));
 header('content-type: text/plain');
 
-$statement = $db->prepare("REPLACE INTO `weather_data` (`timestamp`, `temperature`, `temperature_felt`, `wind_direction`, `wind_speed`, `humidity`, `precipitation`, `raining`, `luminous_intensity`, `radiation`, `air_pressure`) VALUES (:timestamp, :temperature, :temperature_felt, :wind_direction, :wind_speed, :humidity, :precipitation, :raining, :luminous_intensity, :radiation, :air_pressure)");
+$statement = DB::get()->prepare("REPLACE INTO `weather_data` (`timestamp`, `temperature`, `temperature_felt`, `wind_direction`, `wind_speed`, `humidity`, `precipitation`, `raining`, `luminous_intensity`, `radiation`, `air_pressure`) VALUES (:timestamp, :temperature, :temperature_felt, :wind_direction, :wind_speed, :humidity, :precipitation, :raining, :luminous_intensity, :radiation, :air_pressure)");
 
 echo 'Importing ' . count($rows) . ' rows...';
 flush();ob_flush();

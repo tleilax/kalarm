@@ -1,11 +1,14 @@
 if (weather_data && weather_data.length) {
     $('#chart').show().plot([{
-        label: 'foo',
+        label: 'Niederschlag',
         data: weather_data
+    }, {
+        label: 'Delta',
+        data: weather_delta
     }], {
         lines: {
             show: true,
-            fill: true
+            fill: 0.3
         },
         grid: {
             hoverable: true
@@ -22,7 +25,8 @@ if (weather_data && weather_data.length) {
         },
         yaxis: {
             min: 0,
-            max: $('#chart').data().ymax
+            ticks: 10,
+            minTicksize: 0.5
         }
     });
 }

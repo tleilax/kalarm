@@ -7,28 +7,19 @@
 </head>
 <body>
     <nav>
-        <a href="<?= $_SERVER['PHP_SELF'] ?>?now=<?= strtotime('yesterday', $now) ?>&amp;days=<?= $days ?>">
+        <a href="<?= $_SERVER['PHP_SELF'] ?>?from=<?= $min->format('Ymd') ?>&amp;yesterday&amp;days=<?= $days ?>">
             &lt; 
         </a>
-        <?= date('d.m.Y', $now) ?>
+        <?= $min->format('d.m.Y') ?>
     <? if ($days > 1): ?>
-        - <?= date('d.m.Y', strtotime('+' . ($days - 1) . ' days', $now)) ?>
+        - <?= $max->format('d.m.Y') ?>
     <? endif; ?>
-        <a href="<?= $_SERVER['PHP_SELF'] ?>?now=<?= strtotime('tomorrow', $now) ?>&amp;days=<?= $days ?>">
+        <a href="<?= $_SERVER['PHP_SELF'] ?>?from=<?= $min->format('Ymd') ?>&amp;tomorrow&amp;days=<?= $days ?>">
             &gt;
         </a>
     </nav>
-    <div id="chart" data-xmin="<?= $min * 1000 ?>" data-xmax="<?= $max * 1000 ?>" data-ymax="<?= $max_value ?>"></div>
-    <noscript>
-        <ul>
-        <? foreach ($data as $row): ?>
-            <li>
-                <?= date('d.m.Y H:i:s', $row['timestamp']) ?>,
-                <?= $row['precipitation'] ?>
-            </li>
-        <? endforeach; ?>
-        </ul>
-    </noscript>
+    <div id="chart" data-xmin="<?= $min->getTimestamp() * 1000 ?>" data-xmax="<?= $max->getTimestamp() * 1000 ?>"></div>
+    <noscript>no js, no gfx</noscript>
     <footer>
         Last update: <?= date('d.m.Y H:i:s', $last_update) ?> |
         <?= number_format($totals['total'], 0, ',', '.') ?> entries in db |
@@ -36,11 +27,8 @@
     </footer>
     
     <script>
-        var weather_data = [];
-    <? // Optimize ?> 
-    <? foreach ($data as $row): ?>
-        weather_data.push([<?= $row['timestamp'] * 1000 ?>, <?= $row['precipitation'] ?>]);
-    <? endforeach; ?>
+        var weather_data  = <?= $data->toJSON('precipitation') ?>.map(function (a) { a[0] *= 1000; return a; });
+        var weather_delta = <?= $data->toJSON('delta') ?>.map(function (a) { a[0] *= 1000; return a; });
     </script>
     <script src="assets/application.js"></script>
 </body>

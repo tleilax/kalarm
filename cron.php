@@ -22,7 +22,7 @@
         'air_pressure'       => to_float($cleaned[21]),
     );
 
-    $statement = $db->prepare("REPLACE INTO `weather_data` (`timestamp`, `temperature`, `temperature_felt`, `wind_direction`, `wind_speed`, `humidity`, `precipitation`, `raining`, `luminous_intensity`, `radiation`, `air_pressure`) VALUES (:timestamp, :temperature, :temperature_felt, :wind_direction, :wind_speed, :humidity, :precipitation, :raining, :luminous_intensity, :radiation, :air_pressure)");
+    $statement = DB::get()->prepare("REPLACE INTO `weather_data` (`timestamp`, `temperature`, `temperature_felt`, `wind_direction`, `wind_speed`, `humidity`, `precipitation`, `raining`, `luminous_intensity`, `radiation`, `air_pressure`) VALUES (:timestamp, :temperature, :temperature_felt, :wind_direction, :wind_speed, :humidity, :precipitation, :raining, :luminous_intensity, :radiation, :air_pressure)");
     $statement->bindValue(':timestamp', $data['timestamp']);
     $statement->bindValue(':temperature', $data['temperature']);
     $statement->bindValue(':temperature_felt', $data['temperature_felt']);
